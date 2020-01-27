@@ -3,7 +3,6 @@ package com;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-import com.client.controller.TestController;
 import com.common.logger.utils.LoggingService;
 
 public class LoggerApplication {
