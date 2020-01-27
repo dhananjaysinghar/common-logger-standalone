@@ -1,4 +1,4 @@
-package com.client.controller.utils;
+package com.client.service;
 
 import com.common.logger.rules.Priority;
 import com.common.logger.rules.StandardErrors;
