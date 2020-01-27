@@ -35,7 +35,7 @@
 			<fileNamePattern>${MY_HOME}/${LOG_FILE}_%d{yyyy-MM-dd HH-mm}__%i.log
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-            <maxFileSize>1KB</maxFileSize>
+            <maxFileSize>100KB</maxFileSize>
         </timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 		<encoder
