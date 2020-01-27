@@ -6,6 +6,10 @@ public class ConversationIdGenerator {
 
 	private static final ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
+	private ConversationIdGenerator() {
+		super();
+	}
+
 	public static String getConversationId() {
 		if (threadLocal.get() != null) {
 			return threadLocal.get();

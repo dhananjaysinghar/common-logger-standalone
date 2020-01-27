@@ -24,7 +24,8 @@ public class CommonLogger {
 	public static void logUserJourney(Logger logger, String message) {
 		crefreshAdditionalIndex();
 		MDC.put("conversationId", ConversationIdGenerator.getConversationId());
-		logger.debug(message);
+		MDC.put("shortMessage", message);
+		logger.debug("{message:{}}",message);
 	}
 
 	/**
@@ -44,6 +45,7 @@ public class CommonLogger {
 
 		Level level = determineLoglevel(logCode);
 		addAdditionalIndex(message);
+		MDC.put("shortMessage", message.getMessageDescription());
 		log(logger, level, message.toString());
 	}
 
@@ -68,6 +70,7 @@ public class CommonLogger {
 
 		Level level = determineLoglevel(standardError.getLogCode());
 		addAdditionalIndex(message);
+		MDC.put("shortMessage", standardError.getMessage());
 		log(logger, level, message.toString(), message.getException());
 	}
 

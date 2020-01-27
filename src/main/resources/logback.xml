@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration scan="true">
+
+	<!-- System properties -->
 	<property resource="config.properties" />
-	<appender name="kibanaLogger-console" class="ch.qos.logback.core.ConsoleAppender">
+	
+	<appender name="commonLogger-console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder
 			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
 			<providers>
@@ -13,7 +16,8 @@
 						{
 						"level": "%level",
 						"conversationId":"%X{conversationId}",
-						"message":"%message",
+						"message":"%X{shortMessage}",
+						"messageDescription":"%message",
 						"logger":"%logger",
 						"thread":"%thread",
 						"exception":"%ex"
@@ -23,8 +27,17 @@
 			</providers>
 		</encoder>
 	</appender>
-	<appender name="kibanaLogger-file" class="ch.qos.logback.core.FileAppender">
+
+	<appender name="commonLogger-file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${MY_HOME}/${LOG_FILE}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${MY_HOME}/${LOG_FILE}_%d{yyyy-MM-dd HH-mm}__%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>1KB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
 		<encoder
 			class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
 			<providers>
@@ -36,7 +49,8 @@
 						{
 						"level": "%level",
 						"conversationId":"%X{conversationId}",
-						"message":"%message",
+						"message":"%X{shortMessage}",
+						"messageDescription":"%message",
 						"logger":"%logger",
 						"thread":"%thread",
 						"exception":"%ex"
@@ -47,7 +61,7 @@
 		</encoder>
 	</appender>
 	<root level="DEBUG">
-		<appender-ref ref="kibanaLogger-console" />
-		<appender-ref ref="kibanaLogger-file" />
+		<appender-ref ref="commonLogger-console" />
+		<appender-ref ref="commonLogger-file" />
 	</root>
 </Configuration>
